@@ -1,0 +1,26 @@
+{
+    "name": "alikhanz/laravel-repository",
+    "description": "Simple laravel repository",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alikhan Zakirov",
+            "email": "alihan93.93@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LaravelThings\\Repository\\": ""
+        }
+    },
+    "require": {
+        "illuminate/database": "^5.6",
+        "illuminate/support": "^5.7@dev"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}

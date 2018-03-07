@@ -16,7 +16,7 @@
     },
     "require": {
         "illuminate/database": "^5.6",
-        "illuminate/support": "^5.7@dev"
+        "illuminate/support": "^5.6"
     },
     "config": {
         "sort-packages": true

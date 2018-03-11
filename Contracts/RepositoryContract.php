@@ -5,16 +5,34 @@
 
 namespace LaravelThings\Repository\Contracts;
 
+use Illuminate\Support\Collection;
+
 interface RepositoryContract
 {
     /**
-     * Find record by ID
+     * @param array $attributes
+     *
+     * @return ModelContract
+     */
+    public function create(array $attributes): ModelContract;
+
+    /**
+     * Find record by ID.
      *
      * @param mixed $id
      *
-     * @return mixed
+     * @return ModelContract|null
      */
-    public function findById($id);
+    public function findOne($id): ?ModelContract;
+
+    /**
+     * Find record by ID.
+     *
+     * @param array $id
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function findMany(array $id): ?Collection;
 
     /**
      * Returns true on success delete else false.
@@ -23,5 +41,5 @@ interface RepositoryContract
      *
      * @return bool
      */
-    public function delete($id): boolean;
+    public function delete($id): bool;
 }

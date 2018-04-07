@@ -5,6 +5,7 @@
 
 namespace LaravelThings\Repository\Contracts;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 interface RepositoryContract
@@ -35,6 +36,19 @@ interface RepositoryContract
     public function findMany(array $id): ?Collection;
 
     /**
+     * @param int|null $perPage
+     * @param string $pageName
+     * @param int|null $page
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginate(
+        ?int $perPage = null,
+        string $pageName = 'page',
+        int $page = null
+    ): LengthAwarePaginator;
+
+    /**
      * Returns true on success delete else false.
      *
      * @param mixed $id
@@ -42,4 +56,13 @@ interface RepositoryContract
      * @return bool
      */
     public function delete($id): bool;
+
+    /**
+     * Save model.
+     *
+     * @param ModelContract $model
+     *
+     * @return ModelContract
+     */
+    public function save(ModelContract $model): ModelContract;
 }

@@ -5,6 +5,7 @@
 
 namespace LaravelThings\Repository\Eloquent;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -72,9 +73,11 @@ class BaseRepository implements RepositoryContract
      */
     public function delete($identifier): bool
     {
-        $key = $identifier instanceof ModelContract ? $identifier->getKey() : $identifier;
+        if ($identifier instanceof Model) {
+            return $identifier->delete();
+        }
 
-        $affectedRowsCount = $this->query()->getQuery()->delete($key);
+        $affectedRowsCount = $this->query()->getQuery()->delete($identifier);
 
         return $affectedRowsCount > 0;
     }
@@ -85,13 +88,31 @@ class BaseRepository implements RepositoryContract
      */
     protected function query(): Builder
     {
-        if ($this->model === null)
-        {
+        if ($this->model === null) {
             throw new NullRepositoryModelException(
                 sprintf('$model property must be declared for repository [%s]', get_class($this))
             );
         }
 
         return $this->model->newQuery();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function paginate(
+        ?int $perPage = null,
+        string $pageName = 'page',
+        int $page = null
+    ): LengthAwarePaginator
+    {
+        return $this->model->paginate($perPage, ['*'], $pageName, $page);
+    }
+
+    public function save(ModelContract $model): ModelContract
+    {
+        $model->save();
+
+        return $model;
     }
 }

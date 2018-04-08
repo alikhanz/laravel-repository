@@ -65,4 +65,9 @@ interface RepositoryContract
      * @return ModelContract
      */
     public function save(ModelContract $model): ModelContract;
+
+    /**
+     * @return ModelContract
+     */
+    public function newModelInstance(); // No return types because i want declare return types in repository realisation
 }

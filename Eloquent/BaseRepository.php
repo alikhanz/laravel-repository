@@ -115,4 +115,12 @@ class BaseRepository implements RepositoryContract
 
         return $model;
     }
+
+    /**
+     * @return ModelContract|mixed
+     */
+    public function newModelInstance(): ModelContract
+    {
+        return $this->model->newInstance();
+    }
 }
